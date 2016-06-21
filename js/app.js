@@ -125,7 +125,7 @@ $(document).ready(function () {
 
   for (var i = 0; i < questionsList.length; i++) {
     while (true) {
-      var userInput = prompt(questionsList[i].question);
+            // var userInput = prompt(questionsList[i].question);
       if ((userInput === 'N') || (userInput === 'Y')) {
         break;
       }

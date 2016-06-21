@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <title>Pirate Bartender</title>
-</head>
-
-<body>
-  <h1>Here's yer drink!</h1>
- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
- <script src="js/app.js"></script>
-</body>
-
+	<head>
+		<meta charset="UTF-8">
+		<title>Pirate Bartender</title>
+		<!--Google Fonts-->
+		<link href="https://fonts.googleapis.com/css?family=Open Sans|Roboto:400,700" rel="stylesheet">
+		<!-- Style Sheets-->
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<div class="container">
+			<section class="questions-form">
+				<h1>Here's yer drink!</h1>
+				<form action="index_submit" method="" >
+					<label>Do ye like yer drinks strong?  <input type="checkbox" name="" value="true"></label><br>
+					<label>Do ye like it with a salty tang?  <input type="checkbox" name="" value="true"></label><br>
+					<label>Are ye a lubber who likes it bitter?  <input type="checkbox" name="" value="true"></label><br>
+					<label>Would ye like a bit of sweetness with yer poison?  <input type="checkbox" name="" value="true"></label><br>
+					<label>Are ye one for a fruity finish?  <input type="checkbox" name="" value="true"></label><br>
+					<input type="submit" name="" value="Submit">
+				</form>
+			</section>
+		</div>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="js/app.js"></script>
+	</body>
 </html>
