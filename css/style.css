@@ -1,33 +1,36 @@
-html { height: 100%; }
+html {
+  height: 100%;
+}
 
 body {
-	line-height: 1;
-	color: #000;
-	font: 16px "Open Sans", Helvetica, Arial, sans-serif;
-	background: #fff;
-	-webkit-font-smoothing: antialiased;
-	-webkit-text-size-adjust: 100%;
-	overflow-x: hidden;
-	margin: 0 auto;
-	text-align: center;
-	background-image: url('../images/mutiny_pirate_bar.jpg');
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
+  line-height: 1;
+  color: #000;
+  font: 16px "Open Sans", Helvetica, Arial, sans-serif;
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+  margin: 0 auto;
+  text-align: center;
+  background-image: url('../images/mutiny_pirate_bar.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .container {
-
-	padding: 250px 0;
+  padding: 250px 0;
 }
 
 h1 {
-	font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .questions-form {
-	text-align: center;
-	margin: 0 auto;
-	max-width: 500px ;
-	background-color: rgba(255, 255, 255, 0.8) ;
+  text-align: center;
+  padding: 25px 0;
+  margin: 0 auto;
+  max-width: 500px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 1em;
 }

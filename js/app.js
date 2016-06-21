@@ -12,10 +12,10 @@ $(document).ready(function () {
   /*----------------- VARIABLES -----------------*/
 
   // constructor for the questions
-  var Question = function (question, category) {
-    this.question = question;
-    this.category = category;
-  };
+  //  var Question = function (question, category) {
+  //    this.question = question;
+  //    this.category = category;
+  //  };
 
   // constructor for the ingredients
   var Ingredients = function (ingredients, category, preference) {
@@ -44,11 +44,11 @@ $(document).ready(function () {
 
 
   var userPreferences = {
-    'strong': '',
-    'salty': '',
-    'bitter': '',
-    'sweet': '',
-    'fruity': '',
+    strong: false,
+    salty: false,
+    bitter: false,
+    sweet: false,
+    fruity: false,
   };
 
   //creates Pantry objects based on constructors
@@ -95,7 +95,13 @@ $(document).ready(function () {
     var nounNum = Math.floor(Math.random() * drinkNameNouns.noun.length);
     var adjNum = Math.floor(Math.random() * drinkNameAdj.adjective.length);
 
-    alert('You\'re drink is a ' + drinkNameAdj.adjective[adjNum] + ' ' + drinkNameNouns.noun[nounNum] + ' which has a ' + drink);
+    //    alert('You\'re drink is a ' + drinkNameAdj.adjective[adjNum] + ' ' + drinkNameNouns.noun[nounNum] + ' which has a ' + drink);
+  }
+
+  function createQuestion(varName, questionText, ingVar) {
+    varName = new Question(questionText, ingVar);
+    console.log(varName);
+    questionsList.push(varName);
   }
 
   //creates ingredients based on constructors
@@ -105,15 +111,8 @@ $(document).ready(function () {
   var sweetIngredient = new Ingredients(['sugar cube', 'spoonful of honey', 'splash of cola'], sweetPantry, 'sweet');
   var fruityIngredient = new Ingredients(['slice of orange', 'dash of cassis', 'cherry on top'], fruityPantry, 'fruity');
 
-  // creates objects based on constructors
-  var strongQuestion = new Question('Do ye like yer drinks strong? (Y/N)', strongIngredient);
-  var saltyQuestion = new Question('Do ye like it with a salty tang? (Y/N)', saltyIngredient);
-  var bitterQuestion = new Question('Are ye a lubber who likes it bitter? (Y/N)', bitterIngredient);
-  var sweetQuestion = new Question('Would ye like a bit of sweetness with yer poison? (Y/N)', sweetIngredient);
-  var fruityQuestion = new Question('Are ye one for a fruity finish? (Y/N)', fruityIngredient);
-
   // array of questions to iterate through
-  var questionsList = [strongQuestion, saltyQuestion, bitterQuestion, sweetQuestion, fruityQuestion];
+  var questionsList = [];
   var pantryList = [strongPantry, saltyPantry, bitterPantry, sweetPantry, fruityPantry];
   var finalDrink = new Bartender();
 
@@ -121,22 +120,48 @@ $(document).ready(function () {
   var drinkNameNouns = new DrinkNoun(['Mary', 'Sailor', 'Monkey', 'Booty', 'Dog', 'Martin', 'Bhaumik'])
   var drinkNameAdj = new DrinkAdj(['Smelly', 'Bloody', 'Ugly', 'Beautiful', 'Bootilicious', 'Hurricane'])
 
+
   /*----------------- CODE BODY -----------------*/
 
-  for (var i = 0; i < questionsList.length; i++) {
-    while (true) {
-            // var userInput = prompt(questionsList[i].question);
-      if ((userInput === 'N') || (userInput === 'Y')) {
-        break;
+  $('.submit-button').click(function () {
+    event.preventDefault();
+
+
+    // this grabs the user's preferences
+    $('.aye').each(function () {
+      var currentQuestion = $(this).val();
+      if ($(this).is(':checked')) {
+        userPreferences[currentQuestion] = true;
+      }
+    });
+    //    console.log(userPreferences);
+
+    // take their preferences and grab ingredients
+    for (var pref in userPreferences) {
+      var currentIngredient = pref + 'Ingredient';
+      console.log($('currentIngredient'));
+
+      if (userPreferences[pref]) {
+
       }
     }
-    var currentIngredient = questionsList[i].category;
-    var currentPantry = currentIngredient.category;
+  });
 
-    if (userInput === 'Y') {
-      var num = Math.floor(Math.random() * 3);
-      userPreferences[currentIngredient.preference] = currentIngredient.ingredientsList[num];
-    }
-  }
+
+  //  for (var i = 0; i < questionsList.length; i++) {
+  //    while (true) {
+  //      // var userInput = prompt(questionsList[i].question);
+  //      if ((userInput === 'N') || (userInput === 'Y')) {
+  //        break;
+  //      }
+  //    }
+  //    var currentIngredient = questionsList[i].category;
+  //    var currentPantry = currentIngredient.category;
+  //
+  //    if (userInput === 'Y') {
+  //      var num = Math.floor(Math.random() * 3);
+  //      userPreferences[currentIngredient.preference] = currentIngredient.ingredientsList[num];
+  //    }
+  //  }
   finalDrink.createDrink(userPreferences);
 });
