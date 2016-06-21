@@ -7,97 +7,107 @@ constructors to create objects representing the bartenders questions,
 ingredients and pantry.
 */
 
-$(document).ready(function() {
+$(document).ready(function () {
 
-    /*----------------- VARIABLES -----------------*/
+  /*----------------- VARIABLES -----------------*/
 
-    // constructor for the questions
-    //  var Question = function (question, category) {
-    //    this.question = question;
-    //    this.category = category;
-    //  };
+  var questionsList = [];
+  var userPreferences = {};
+  var pantry = {};
 
-    var questionsList = [];
-
-    var userPreferences = {
-
-    };
-
-    // constructor for the ingredients
-    var Taste = function(flavor, question, ingredients) {
-        this.flavor = flavor;
-        this.question = question;
-        this.ingredients = ingredients;
-        questionsList.push(this);
-
+  // constructor for the ingredients
+  var Taste = function (flavor, question, ingredients) {
+    this.flavor = flavor;
+    this.question = question;
+    this.ingredients = ingredients;
+    questionsList.push(this);
+    for (var i = 0; i < ingredients.length; i++) {
+      pantry[ingredients[i]] = 3;
     }
+  }
 
-    new Taste('strong', 'Do ye like yer drinks strong?', ['glug of rum', 'slug of whisky', 'splash of gin'])
-    new Taste('salty', 'Do ye like it with a salty tang?', ['olive on a stick', 'salt-dusted rim', 'rasher of bacon']);
-    new Taste('bitter', 'Are ye a lubber who likes it bitter?', ['shake of bitters', 'splash of tonic', 'twist of lemon peel']);
-    new Taste('sweet', 'Would ye like a bit of sweetness with yer poison?', ['sugar cube', 'spoonful of honey', 'splash of cola']);
-    new Taste('fruity', 'Are ye one for a fruity finish?', ['slice of orange', 'dash of cassis', 'cherry on top']);
+  var Bartender = function (name, age) {
+    this.name = name;
+    this.age = age;
+  }
 
-    console.log(questionsList);
-    // array of questions to iterate through
-    for (var i = 0; i < questionsList.length; i++) {
-        $('.main-form').append('<label>' + questionsList[i].question + '  <input type="checkbox" class="aye" value="' + questionsList[i].flavor +
-            '"> Aye!</label><br>')
-    }
+  Bartender.prototype.randomizer = function (i) {
+    var randomNum = Math.floor(Math.random() * questionsList[i].ingredients.length);
+    return randomNum;
+  }
 
-    //  var pantryList = [strongPantry, saltyPantry, bitterPantry, sweetPantry, fruityPantry];
-    //  var finalDrink = new Bartender();
+  new Taste('strong', 'Do ye like yer drinks strong?', ['glug of rum', 'slug of whisky', 'splash of gin'])
+  new Taste('salty', 'Do ye like it with a salty tang?', ['olive on a stick', 'salt-dusted rim', 'rasher of bacon']);
+  new Taste('bitter', 'Are ye a lubber who likes it bitter?', ['shake of bitters', 'splash of tonic', 'twist of lemon peel']);
+  new Taste('sweet', 'Would ye like a bit of sweetness with yer poison?', ['sugar cube', 'spoonful of honey', 'splash of cola']);
+  new Taste('fruity', 'Are ye one for a fruity finish?', ['slice of orange', 'dash of cassis', 'cherry on top']);
 
-    // creates objects for drink name
-    //  var drinkNameNouns = new DrinkNoun(['Mary', 'Sailor', 'Monkey', 'Booty', 'Dog', 'Martin', 'Bhaumik'])
-    //var drinkNameAdj = new DrinkAdj(['Smelly', 'Bloody', 'Ugly', 'Beautiful', 'Bootilicious', 'Hurricane'])
+  var darrell = new Bartender('Darrell', '25');
 
+  /*----------------- CODE BODY -----------------*/
 
-    /*----------------- CODE BODY -----------------*/
+  // array of questions to iterate through
+  for (var i = 0; i < questionsList.length; i++) {
+    $('.main-form').append('<label>' + questionsList[i].question + '  <input type="checkbox" class="aye" value="' + questionsList[i].flavor +
+      '"> Aye!</label><br>')
+  }
 
-    $('.submit-button').click(function() {
-        event.preventDefault();
+  $('.submit-button').click(function () {
+    event.preventDefault();
 
-
-
-        // this grabs the user's preferences
-        $('.aye').each(function() {
-            var currentQuestion = $(this).val();
-            if ($(this).is(':checked')) {
-                userPreferences[currentQuestion] = true;
-            }
-
-        });
-        console.log(userPreferences);
-
-        // take their preferences and grab ingredients
-        //    for (var pref in userPreferences) {
-        //      var currentIngredient = pref + 'Ingredient';
-        //      console.log($('currentIngredient'));
-        //
-        //      if (userPreferences[pref]) {
-
-
+    // this grabs the user's preferences
+    $('.aye').each(function () {
+      var currentQuestion = $(this).val();
+      if ($(this).is(':checked')) {
+        userPreferences[currentQuestion] = true;
+      } else {
+        userPreferences[currentQuestion] = false;
+      }
     });
+    console.log(userPreferences);
 
-
-    //  for (var i = 0; i < questionsList.length; i++) {
-    //    while (true) {
-    //      // var userInput = prompt(questionsList[i].question);
-    //      if ((userInput === 'N') || (userInput === 'Y')) {
-    //        break;
-    //      }
-    //    }
-    //    var currentIngredient = questionsList[i].category;
-    //    var currentPantry = currentIngredient.category;
-    //
-    //    if (userInput === 'Y') {
-    //      var num = Math.floor(Math.random() * 3);
-    //      userPreferences[currentIngredient.preference] = currentIngredient.ingredientsList[num];
-    //    }
-    //  }
-    //  finalDrink.createDrink(userPreferences);
+    var i = 0;
+    for (var pref in userPreferences) {
+      if (userPreferences[pref]) {
+        while (true) {
+          var ingredientNum = darrell.randomizer(i);
+          var currentIngredient = questionsList[i].ingredients[ingredientNum];
+          if (pantry.currentIngredient !== 0) {
+            $('.results-section').append('<p>' + currentIngredient + '</p>');
+            break;
+          }
+        }
+      }
+      i++;
+    }
+  });
 });
+
+
+
+//  var pantryList = [strongPantry, saltyPantry, bitterPantry, sweetPantry, fruityPantry];
+//  var finalDrink = new Bartender();
+
+// creates objects for drink name
+//  var drinkNameNouns = new DrinkNoun(['Mary', 'Sailor', 'Monkey', 'Booty', 'Dog', 'Martin', 'Bhaumik'])
+//var drinkNameAdj = new DrinkAdj(['Smelly', 'Bloody', 'Ugly', 'Beautiful', 'Bootilicious', 'Hurricane'])
+
+//  for (var i = 0; i < questionsList.length; i++) {
+//    while (true) {
+//      // var userInput = prompt(questionsList[i].question);
+//      if ((userInput === 'N') || (userInput === 'Y')) {
+//        break;
+//      }
+//    }
+//    var currentIngredient = questionsList[i].category;
+//    var currentPantry = currentIngredient.category;
+//
+//    if (userInput === 'Y') {
+//      var num = Math.floor(Math.random() * 3);
+//      userPreferences[currentIngredient.preference] = currentIngredient.ingredientsList[num];
+//    }
+//  }
+//  finalDrink.createDrink(userPreferences);
 
 
 /*

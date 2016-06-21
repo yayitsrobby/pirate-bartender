@@ -26,6 +26,7 @@ h1 {
   font-family: 'Roboto', sans-serif;
 }
 
+.results-section,
 .questions-form {
   text-align: center;
   padding: 25px 0;
@@ -33,4 +34,5 @@ h1 {
   max-width: 500px;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 1em;
+  margin-bottom: 10px;
 }
