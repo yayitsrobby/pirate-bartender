@@ -19,9 +19,6 @@ $(document).ready(function() {
     var drinkNameNouns = ['Mary', 'Sailor', 'Monkey', 'Booty', 'Dog', 'Martin', 'Bhaumik'];
     var drinkNameAdj = ['Smelly', 'Bloody', 'Ugly', 'Beautiful', 'Bootilicious', 'Hurricane'];
 
-    var nounNum = Math.floor(Math.random() * drinkNameNouns.length);
-    var adjNum = Math.floor(Math.random() * drinkNameAdj.length);
-
     // constructor for the ingredients
     var Taste = function(flavor, question, ingredients) {
         this.flavor = flavor;
@@ -48,6 +45,7 @@ $(document).ready(function() {
     new Taste('bitter', 'Are ye a lubber who likes it bitter?', ['shake of bitters', 'splash of tonic', 'twist of lemon peel']);
     new Taste('sweet', 'Would ye like a bit of sweetness with yer poison?', ['sugar cube', 'spoonful of honey', 'splash of cola']);
     new Taste('fruity', 'Are ye one for a fruity finish?', ['slice of orange', 'dash of cassis', 'cherry on top']);
+    new Taste('sour', 'Are you sour?', ['sour1', 'sour2', 'sour3']);
 
     var darrell = new Bartender('Darrell', '25');
 
@@ -62,6 +60,8 @@ $(document).ready(function() {
     $('.submit-button').click(function() {
         event.preventDefault();
         $('.results').empty();
+        var nounNum = Math.floor(Math.random() * drinkNameNouns.length);
+        var adjNum = Math.floor(Math.random() * drinkNameAdj.length);
 
         // this grabs the user's preferences
         $('.aye').each(function() {
@@ -73,9 +73,8 @@ $(document).ready(function() {
             }
         });
 
-        $('.drink-name').text(drinkNameAdj[adjNum] + ' ' + drinkNameNouns[nounNum]);
-
         var i = 0;
+        var nameCount = 0;
         for (var pref in userPreferences) {
             var failCount = 0;
             if (userPreferences[pref]) {
@@ -84,6 +83,7 @@ $(document).ready(function() {
                     var currentIngredient = questionsList[i].ingredients[ingredientNum];
                     if (pantry[currentIngredient] !== 0) {
                         $('.results').append('<p>' + currentIngredient + '</p>');
+                        nameCount++;
                         pantry[currentIngredient]--;
                         break;
                     } else if (++failCount === 10) {
@@ -93,6 +93,11 @@ $(document).ready(function() {
                 }
             }
             i++;
+        }
+        if (nameCount !== 0) {
+            $('.drink-name').text(drinkNameAdj[adjNum] + ' ' + drinkNameNouns[nounNum]);
+        } else {
+            $('.drink-name').text('');
         }
         $('.results-section').show();
     });
