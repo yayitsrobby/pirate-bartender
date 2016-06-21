@@ -22,7 +22,7 @@ $(document).ready(function () {
     this.ingredients = ingredients;
     questionsList.push(this);
     for (var i = 0; i < ingredients.length; i++) {
-      pantry[ingredients[i]] = 3;
+      pantry[ingredients[i]] = 1;
     }
   }
 
@@ -73,8 +73,9 @@ $(document).ready(function () {
         while (true) {
           var ingredientNum = darrell.randomizer(i);
           var currentIngredient = questionsList[i].ingredients[ingredientNum];
-          if (pantry.currentIngredient !== 0) {
+          if (pantry[currentIngredient] !== 0) {
             $('.results-section').append('<p>' + currentIngredient + '</p>');
+            pantry[currentIngredient]--;
             break;
           } else if (++failCount === 10) {
             $('.results-section').append('<p>Sorry, we\'re out of ' + questionsList[i].flavor + ' stuff</p>');
