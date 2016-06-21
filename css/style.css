@@ -15,7 +15,7 @@ body {
   background-image: url('../images/mutiny_pirate_bar.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top center;
 }
 
 .container {
@@ -36,3 +36,8 @@ h1 {
   border-radius: 1em;
   margin-bottom: 10px;
 }
+
+.results-section {
+  display: none;
+}
+
