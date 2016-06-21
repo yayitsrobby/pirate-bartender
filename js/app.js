@@ -22,7 +22,7 @@ $(document).ready(function () {
     this.ingredients = ingredients;
     questionsList.push(this);
     for (var i = 0; i < ingredients.length; i++) {
-      pantry[ingredients[i]] = 1;
+      pantry[ingredients[i]] = 3;
     }
   }
 
@@ -46,6 +46,8 @@ $(document).ready(function () {
 
   /*----------------- CODE BODY -----------------*/
 
+  $('.results-section').hide();
+
   // array of questions to iterate through
   for (var i = 0; i < questionsList.length; i++) {
     $('.main-form').append('<label>' + questionsList[i].question + '  <input type="checkbox" class="aye" value="' + questionsList[i].flavor +
@@ -54,6 +56,7 @@ $(document).ready(function () {
 
   $('.submit-button').click(function () {
     event.preventDefault();
+    $('.results').empty();
 
     // this grabs the user's preferences
     $('.aye').each(function () {
@@ -74,17 +77,18 @@ $(document).ready(function () {
           var ingredientNum = darrell.randomizer(i);
           var currentIngredient = questionsList[i].ingredients[ingredientNum];
           if (pantry[currentIngredient] !== 0) {
-            $('.results-section').append('<p>' + currentIngredient + '</p>');
+            $('.results').append('<p>' + currentIngredient + '</p>');
             pantry[currentIngredient]--;
             break;
           } else if (++failCount === 10) {
-            $('.results-section').append('<p>Sorry, we\'re out of ' + questionsList[i].flavor + ' stuff</p>');
+            $('.results').append('<p>Sorry, we\'re out of ' + questionsList[i].flavor + ' stuff</p>');
             break;
           }
         }
       }
       i++;
     }
+    $('.results-section').show();
   });
 });
 
@@ -113,58 +117,7 @@ $(document).ready(function () {
 //    }
 //  }
 //  finalDrink.createDrink(userPreferences);
-
-
 /*
-
- // constructor for the pantry
-  var Pantry = function (ingredients) {
-    this.ingredientsList = ingredients;
-  };
-
-  // constructor for createDrink method
-  var Bartender = function () {
-    // body...
-  }
-
-  var DrinkNoun = function (noun) {
-    this.noun = noun;
-  }
-
-  var DrinkAdj = function (adjective) {
-    this.adjective = adjective;
-  }
-
-  //creates Pantry objects based on constructors
-  var strongPantry = {
-    'glug of rum': 3,
-    'slug of whisky': 3,
-    'splash of gin': 3
-  }
-
-  var saltyPantry = {
-    'olive on a stick': 3,
-    'salt-dusted rim': 3,
-    'rasher of bacon': 3
-  }
-
-  var bitterPantry = {
-    'shake of bitters': 3,
-    'splash of tonic': 3,
-    'twist of lemon peel': 3
-  }
-
-  var sweetPantry = {
-    'sugar cube': 3,
-    'spoonful of honey': 3,
-    'splash of cola': 3
-  }
-
-  var fruityPantry = {
-    'slice of orange': 3,
-    'dash of cassis': 3,
-    'cherry on top': 3
-  }
 
   Bartender.prototype.createDrink = function (userPrefs) {
     var drink = '';
