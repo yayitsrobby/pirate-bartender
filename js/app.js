@@ -68,12 +68,16 @@ $(document).ready(function () {
 
     var i = 0;
     for (var pref in userPreferences) {
+      var failCount = 0;
       if (userPreferences[pref]) {
         while (true) {
           var ingredientNum = darrell.randomizer(i);
           var currentIngredient = questionsList[i].ingredients[ingredientNum];
           if (pantry.currentIngredient !== 0) {
             $('.results-section').append('<p>' + currentIngredient + '</p>');
+            break;
+          } else if (++failCount === 10) {
+            $('.results-section').append('<p>Sorry, we\'re out of ' + questionsList[i].flavor + ' stuff</p>');
             break;
           }
         }
