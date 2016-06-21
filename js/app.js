@@ -17,14 +17,93 @@ $(document).ready(function () {
   //    this.category = category;
   //  };
 
+  var questionsList = [];
+
   // constructor for the ingredients
-  var Ingredients = function (ingredients, category, preference) {
-    this.ingredientsList = ingredients;
-    this.category = category;
-    this.preference = preference;
+  var Taste = function (question, ingredients) {
+    this.question = question;
+    this.ingredients = ingredients;
+    questionsList.push(this);
   }
 
-  // constructor for the pantry
+  var userPreferences = {
+    strong: false,
+    salty: false,
+    bitter: false,
+    sweet: false,
+    fruity: false,
+  };
+
+  var strong = new Taste('Do ye like yer drinks strong?', ['glug of rum', 'slug of whisky', 'splash of gin'])
+  var salty = new Taste('Do ye like it with a salty tang?', ['olive on a stick', 'salt-dusted rim', 'rasher of bacon']);
+  var bitter = new Taste('Are ye a lubber who likes it bitter?', ['shake of bitters', 'splash of tonic', 'twist of lemon peel']);
+  var sweet = new Taste('Would ye like a bit of sweetness with yer poison?', ['sugar cube', 'spoonful of honey', 'splash of cola']);
+  var fruity = new Taste('Are ye one for a fruity finish?', ['slice of orange', 'dash of cassis', 'cherry on top']);
+
+  console.log(questionsList);
+  // array of questions to iterate through
+  for (var i = 0; i < questionsList.length; i++) {
+    $('.main-form').append('<label>' + questionsList[i].question + '  <input type="checkbox" class="aye" value="' + questionsList[i] +
+      '"> Aye!</label><br>')
+  }
+
+  //  var pantryList = [strongPantry, saltyPantry, bitterPantry, sweetPantry, fruityPantry];
+  //  var finalDrink = new Bartender();
+
+  // creates objects for drink name
+  //  var drinkNameNouns = new DrinkNoun(['Mary', 'Sailor', 'Monkey', 'Booty', 'Dog', 'Martin', 'Bhaumik'])
+  //var drinkNameAdj = new DrinkAdj(['Smelly', 'Bloody', 'Ugly', 'Beautiful', 'Bootilicious', 'Hurricane'])
+
+
+  /*----------------- CODE BODY -----------------*/
+
+  $('.submit-button').click(function () {
+    event.preventDefault();
+
+
+
+    // this grabs the user's preferences
+    $('.aye').each(function () {
+      var currentQuestion = $(this).val();
+      if ($(this).is(':checked')) {
+        userPreferences[currentQuestion] = true;
+      }
+    });
+    console.log(userPreferences);
+
+    // take their preferences and grab ingredients
+    //    for (var pref in userPreferences) {
+    //      var currentIngredient = pref + 'Ingredient';
+    //      console.log($('currentIngredient'));
+    //
+    //      if (userPreferences[pref]) {
+
+
+  });
+
+
+  //  for (var i = 0; i < questionsList.length; i++) {
+  //    while (true) {
+  //      // var userInput = prompt(questionsList[i].question);
+  //      if ((userInput === 'N') || (userInput === 'Y')) {
+  //        break;
+  //      }
+  //    }
+  //    var currentIngredient = questionsList[i].category;
+  //    var currentPantry = currentIngredient.category;
+  //
+  //    if (userInput === 'Y') {
+  //      var num = Math.floor(Math.random() * 3);
+  //      userPreferences[currentIngredient.preference] = currentIngredient.ingredientsList[num];
+  //    }
+  //  }
+  //  finalDrink.createDrink(userPreferences);
+});
+
+
+/*
+
+ // constructor for the pantry
   var Pantry = function (ingredients) {
     this.ingredientsList = ingredients;
   };
@@ -41,15 +120,6 @@ $(document).ready(function () {
   var DrinkAdj = function (adjective) {
     this.adjective = adjective;
   }
-
-
-  var userPreferences = {
-    strong: false,
-    salty: false,
-    bitter: false,
-    sweet: false,
-    fruity: false,
-  };
 
   //creates Pantry objects based on constructors
   var strongPantry = {
@@ -98,70 +168,5 @@ $(document).ready(function () {
     //    alert('You\'re drink is a ' + drinkNameAdj.adjective[adjNum] + ' ' + drinkNameNouns.noun[nounNum] + ' which has a ' + drink);
   }
 
-  function createQuestion(varName, questionText, ingVar) {
-    varName = new Question(questionText, ingVar);
-    console.log(varName);
-    questionsList.push(varName);
-  }
 
-  //creates ingredients based on constructors
-  var strongIngredient = new Ingredients(['glug of rum', 'slug of whisky', 'splash of gin'], strongPantry, 'strong');
-  var saltyIngredient = new Ingredients(['olive on a stick', 'salt-dusted rim', 'rasher of bacon'], saltyPantry, 'salty');
-  var bitterIngredient = new Ingredients(['shake of bitters', 'splash of tonic', 'twist of lemon peel'], bitterPantry, 'bitter');
-  var sweetIngredient = new Ingredients(['sugar cube', 'spoonful of honey', 'splash of cola'], sweetPantry, 'sweet');
-  var fruityIngredient = new Ingredients(['slice of orange', 'dash of cassis', 'cherry on top'], fruityPantry, 'fruity');
-
-  // array of questions to iterate through
-  var questionsList = [];
-  var pantryList = [strongPantry, saltyPantry, bitterPantry, sweetPantry, fruityPantry];
-  var finalDrink = new Bartender();
-
-  // creates objects for drink name
-  var drinkNameNouns = new DrinkNoun(['Mary', 'Sailor', 'Monkey', 'Booty', 'Dog', 'Martin', 'Bhaumik'])
-  var drinkNameAdj = new DrinkAdj(['Smelly', 'Bloody', 'Ugly', 'Beautiful', 'Bootilicious', 'Hurricane'])
-
-
-  /*----------------- CODE BODY -----------------*/
-
-  $('.submit-button').click(function () {
-    event.preventDefault();
-
-
-    // this grabs the user's preferences
-    $('.aye').each(function () {
-      var currentQuestion = $(this).val();
-      if ($(this).is(':checked')) {
-        userPreferences[currentQuestion] = true;
-      }
-    });
-    //    console.log(userPreferences);
-
-    // take their preferences and grab ingredients
-    for (var pref in userPreferences) {
-      var currentIngredient = pref + 'Ingredient';
-      console.log($('currentIngredient'));
-
-      if (userPreferences[pref]) {
-
-      }
-    }
-  });
-
-
-  //  for (var i = 0; i < questionsList.length; i++) {
-  //    while (true) {
-  //      // var userInput = prompt(questionsList[i].question);
-  //      if ((userInput === 'N') || (userInput === 'Y')) {
-  //        break;
-  //      }
-  //    }
-  //    var currentIngredient = questionsList[i].category;
-  //    var currentPantry = currentIngredient.category;
-  //
-  //    if (userInput === 'Y') {
-  //      var num = Math.floor(Math.random() * 3);
-  //      userPreferences[currentIngredient.preference] = currentIngredient.ingredientsList[num];
-  //    }
-  //  }
-  finalDrink.createDrink(userPreferences);
-});
+*/
